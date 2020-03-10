@@ -1,0 +1,17 @@
+node_modules/**/*
+.expo/*
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+native-base-theme
+*.orig.*
+web-build/
+web-report/
+assets/video
+
+# macOS
+.DS_Store
