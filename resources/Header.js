@@ -38,7 +38,7 @@ export default function Header({
           returnKeyType={"next"}
           onChangeText={oninputChange}
           onSubmitEditing={searchNews}
-          placeholder="Search iBrandTv"
+          placeholder="Search TopBuzz"
           style={styles.input}
           placeholderTextColor="#767272"
           value={searchInput}

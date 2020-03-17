@@ -1,5 +1,6 @@
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
+import { copilot, walkthroughable, CopilotStep } from "react-native-copilot";
 
 import BottomTabNavigator from "../routes/rootBottomNavigator";
 import WebView from "../screens/WebView";
@@ -70,4 +71,7 @@ const screens = {
 
 const RootStack = createStackNavigator(screens);
 
-export default createAppContainer(RootStack);
+export default copilot({
+  animated: true, // Can be true or false
+  overlay: "svg" // Can be either view or svg
+})(createAppContainer(RootStack));

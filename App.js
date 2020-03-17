@@ -8,7 +8,7 @@ const client = new ApolloClient({
   uri: "http://192.168.8.100:5000/api"
 });
 
-export default function App() {
+function App() {
   return (
     <ApolloProvider client={client}>
       <View style={styles.container}>
@@ -24,3 +24,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF"
   }
 });
+
+export default App;

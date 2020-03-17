@@ -1,7 +1,8 @@
 //BOTTOM NAV TAB
 import React from "react";
-import { Text } from "react-native";
-import { createBottomTabNavigator } from "react-navigation-tabs";
+import { View, Text } from "react-native";
+import { createBottomTabNavigator as createBottomTabNav } from "react-navigation-tabs";
+import { copilot, walkthroughable, CopilotStep } from "react-native-copilot";
 import { createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
@@ -13,6 +14,34 @@ import UserScreen from "../screens/UserScreen";
 import SignInForm from "../screens/SignInForm";
 import SignUpForm from "../screens/SignUpForm";
 import RefreshSpinner from "../resources/RefreshSpinner";
+
+const WalkthroughableText = walkthroughable(RefreshSpinner);
+
+const RefreshButton = copilot({
+  backdropColor: "rgba(50, 50, 100, 0.5)",
+  overlay: "svg", // or 'view'
+  animated: true // or false
+})(function Component({ copilotEvents, start }) {
+  React.useEffect(() => {
+    copilotEvents.on("stepChange", handleStepChange);
+    start();
+  }, []);
+
+  const handleStepChange = step => {
+    console.log(`Current step is: ${step.name}`);
+  };
+  return (
+    <CopilotStep
+      text="This is the refresh button for loading content"
+      order={3}
+      name="Refresh"
+    >
+      <WalkthroughableText
+        onRefresh={() => onRefresh("hello")}
+      ></WalkthroughableText>
+    </CopilotStep>
+  );
+});
 
 const styles = { textAlign: "center", fontSize: 12 };
 
@@ -54,7 +83,7 @@ const AutheticatedScreen = createStackNavigator({
   }
 });
 
-export default createBottomTabNavigator(
+const createBottomTabNavigator = createBottomTabNav(
   {
     Refresh: {
       screen: HomeStack,
@@ -67,7 +96,7 @@ export default createBottomTabNavigator(
           ),
         tabBarIcon: ({ tintColor, focused }) =>
           focused ? (
-            <RefreshSpinner onRefresh={() => onRefresh("hello")} />
+            <RefreshButton />
           ) : (
             <Ionicons color={tintColor} name="md-home" size={30}></Ionicons>
           )
@@ -127,3 +156,5 @@ export default createBottomTabNavigator(
     }
   }
 );
+
+export default createBottomTabNavigator;
